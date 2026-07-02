@@ -1,82 +1,95 @@
 'use strict'
 
-const Asciidoctor = require('@asciidoctor/core')()
-const fs = require('fs-extra')
-const handlebars = require('handlebars')
-const merge = require('merge-stream')
-const ospath = require('path')
+import Asciidoctor from '@asciidoctor/core'
+import fs from 'fs-extra'
+import handlebars from 'handlebars'
+import merge from 'merge-stream'
+import ospath from 'path'
 const path = ospath.posix
-const requireFromString = require('require-from-string')
-const { Transform } = require('stream')
+import requireFromString from 'require-from-string'
+import { Transform } from 'stream'
 const map = (transform = () => {}, flush = undefined) => new Transform({ objectMode: true, transform, flush })
-const vfs = require('vinyl-fs')
-const yaml = require('js-yaml')
+import vfs from 'vinyl-fs'
+import yaml from 'js-yaml'
 
+const asciidoctor = Asciidoctor()
 const ASCIIDOC_ATTRIBUTES = { experimental: '', icons: 'font', sectanchors: '', 'source-highlighter': 'highlight.js' }
 
-module.exports = (src, previewSrc, previewDest, sink = () => map()) => (done) =>
-  Promise.all([
-    loadSampleUiModel(previewSrc),
-    toPromise(
-      merge(compileLayouts(src), registerPartials(src), registerHelpers(src), copyImages(previewSrc, previewDest))
-    ),
-  ])
-    .then(([baseUiModel, { layouts }]) => {
-      const extensions = ((baseUiModel.asciidoc || {}).extensions || []).map((request) => {
-        ASCIIDOC_ATTRIBUTES[request.replace(/^@|\.js$/, '').replace(/[/]/g, '-') + '-loaded'] = ''
-        const extension = require(request)
-        extension.register.call(Asciidoctor.Extensions)
-        return extension
-      })
-      const asciidoc = { extensions }
-      for (const component of baseUiModel.site.components) {
-        for (const version of component.versions || []) version.asciidoc = asciidoc
-      }
-      baseUiModel = { ...baseUiModel, env: process.env }
-      delete baseUiModel.asciidoc
-      return [baseUiModel, layouts]
+export default (src, previewSrc, previewDest, sink = () => map()) => async (done) => {
+  try {
+    const [baseUiModel, { layouts }] = await Promise.all([
+      loadSampleUiModel(previewSrc),
+      toPromise(
+        merge(compileLayouts(src), registerPartials(src), registerHelpers(src), copyImages(previewSrc, previewDest))
+      ),
+    ])
+
+    const extensions = ((baseUiModel.asciidoc || {}).extensions || []).map((request) => {
+      ASCIIDOC_ATTRIBUTES[request.replace(/^@|\.js$/, '').replace(/[/]/g, '-') + '-loaded'] = ''
+      const extension = require(request)
+      extension.register.call(asciidoctor.Extensions)
+      return extension
     })
-    .then(([baseUiModel, layouts]) =>
+    const asciidocConfig = { extensions }
+    for (const component of baseUiModel.site.components) {
+      for (const version of component.versions || []) version.asciidoc = asciidocConfig
+    }
+    const updatedUiModel = { ...baseUiModel, env: process.env }
+    delete updatedUiModel.asciidoc
+
+    await new Promise((resolve, reject) => {
       vfs
         .src('**/*.adoc', { base: previewSrc, cwd: previewSrc })
         .pipe(
-          map((file, enc, next) => {
-            const siteRootPath = path.relative(ospath.dirname(file.path), ospath.resolve(previewSrc))
-            const uiModel = { ...baseUiModel }
-            uiModel.page = { ...uiModel.page }
-            uiModel.siteRootPath = siteRootPath
-            uiModel.uiRootPath = path.join(siteRootPath, '_')
-            if (file.stem === '404') {
-              uiModel.page = { layout: '404', title: 'Page Not Found' }
-            } else {
-              const doc = Asciidoctor.load(file.contents, { safe: 'safe', attributes: ASCIIDOC_ATTRIBUTES })
-              uiModel.page.attributes = Object.entries(doc.getAttributes())
-                .filter(([name, val]) => name.startsWith('page-'))
-                .reduce((accum, [name, val]) => {
-                  accum[name.slice(5)] = val
-                  return accum
-                }, {})
-              uiModel.page.layout = doc.getAttribute('page-layout', 'default')
-              uiModel.page.title = doc.getDocumentTitle()
-              uiModel.page.contents = Buffer.from(doc.convert())
-            }
-            file.extname = '.html'
+          map(async (file, enc, next) => {
             try {
-              file.contents = Buffer.from(layouts.get(uiModel.page.layout)(uiModel))
-              next(null, file)
-            } catch (e) {
-              next(transformHandlebarsError(e, uiModel.page.layout))
+              const siteRootPath = path.relative(ospath.dirname(file.path), ospath.resolve(previewSrc))
+              const uiModel = { ...updatedUiModel }
+              uiModel.page = { ...uiModel.page }
+              uiModel.siteRootPath = siteRootPath
+              uiModel.uiRootPath = path.join(siteRootPath, '_')
+              if (file.stem === '404') {
+                uiModel.page = { layout: '404', title: 'Page Not Found' }
+              } else {
+                const doc = await asciidoctor.load(file.contents, { safe: 'safe', attributes: ASCIIDOC_ATTRIBUTES })
+                uiModel.page.attributes = Object.entries(doc.getAttributes())
+                  .filter(([name, val]) => name.startsWith('page-'))
+                  .reduce((accum, [name, val]) => {
+                    accum[name.slice(5)] = val
+                    return accum
+                  }, {})
+                uiModel.page.layout = doc.getAttribute('page-layout', 'default')
+                uiModel.page.title = doc.getDocumentTitle()
+                const converted = await doc.convert()
+                uiModel.page.contents = Buffer.from(converted)
+              }
+              file.extname = '.html'
+              try {
+                file.contents = Buffer.from(layouts.get(uiModel.page.layout)(uiModel))
+                next(null, file)
+              } catch (e) {
+                next(transformHandlebarsError(e, uiModel.page.layout))
+              }
+            } catch (error) {
+              next(error)
             }
           })
         )
         .pipe(vfs.dest(previewDest))
-        .on('error', done)
+        .on('error', reject)
+        .on('finish', resolve)
         .pipe(sink())
-    )
+    })
+
+    done()
+  } catch (error) {
+    done(error)
+  }
+}
 
 function loadSampleUiModel (src) {
   console.log('Loading sample UI model from', ospath.join(src, 'ui-model.yml'))
-  return fs.readFile(ospath.join(src, 'ui-model.yml'), 'utf8').then((contents) => yaml.safeLoad(contents))
+  return fs.readFile(ospath.join(src, 'ui-model.yml'), 'utf8').then((contents) => yaml.load(contents))
 }
 
 function registerPartials (src) {
