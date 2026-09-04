@@ -1,9 +1,7 @@
-'use strict'
-
-const { parallel, series, watch } = require('gulp')
-const createTask = require('./gulp.d/lib/create-task')
-const exportTasks = require('./gulp.d/lib/export-tasks')
-const log = require('fancy-log')
+import { parallel, series, watch } from 'gulp'
+import createTask from './gulp.d/lib/create-task.js'
+import exportTasks from './gulp.d/lib/export-tasks.js'
+import log from 'fancy-log'
 
 const bundleName = 'ui'
 const buildDir = 'build'
@@ -11,10 +9,12 @@ const previewSrcDir = '../preview-src'
 const previewDestDir = 'public'
 const srcDir = 'src'
 const destDir = `${previewDestDir}/_`
-const { reload: livereload } = process.env.LIVERELOAD === 'true' ? require('gulp-connect') : {}
+const livereloadModule = process.env.LIVERELOAD === 'true' ? await import('gulp-connect') : null
+const { reload: livereload } = livereloadModule ? livereloadModule.default : {}
 const serverConfig = { host: '0.0.0.0', port: 5252, livereload }
 
-const task = require('./gulp.d/tasks')
+const tasksModule = await import('./gulp.d/tasks/index.js')
+const task = tasksModule.default
 const glob = {
   all: [srcDir, previewSrcDir],
   css: `${srcDir}/css/**/*.css`,
@@ -111,7 +111,7 @@ const previewTask = createTask({
   call: series(previewBuildTask, previewServeTask),
 })
 
-module.exports = exportTasks(
+export default exportTasks(
   bundleTask,
   cleanTask,
   lintTask,

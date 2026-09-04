@@ -1,27 +1,27 @@
 'use strict'
 
-const autoprefixer = require('autoprefixer')
-const browserify = require('browserify')
-const concat = require('gulp-concat')
-const cssnano = require('cssnano')
-const fs = require('fs-extra')
-const imagemin = require('gulp-imagemin')
-const merge = require('merge-stream')
-const ospath = require('path')
+import autoprefixer from 'autoprefixer'
+import browserify from 'browserify'
+import concat from 'gulp-concat'
+import cssnano from 'cssnano'
+import fs from 'fs-extra'
+import imagemin, { gifsicle, jpegtran, optipng, svgo } from 'gulp-imagemin'
+import merge from 'merge-stream'
+import ospath from 'path'
 const path = ospath.posix
-const postcss = require('gulp-postcss')
-const postcssCalc = require('postcss-calc')
-const postcssImport = require('postcss-import')
-const postcssUrl = require('postcss-url')
-const postcssVar = require('postcss-custom-properties')
-const { Transform } = require('stream')
-const tailwindPlugin = require('@tailwindcss/postcss')
+import postcss from 'gulp-postcss'
+import postcssCalc from 'postcss-calc'
+import postcssImport from 'postcss-import'
+import postcssUrl from 'postcss-url'
+import postcssVar from 'postcss-custom-properties'
+import { Transform } from 'stream'
+import tailwindPlugin from '@tailwindcss/postcss'
 const map = (transform) => new Transform({ objectMode: true, transform })
 const through = () => map((file, enc, next) => next(null, file))
-const uglify = require('gulp-uglify')
-const vfs = require('vinyl-fs')
+import uglify from 'gulp-uglify'
+import vfs from 'vinyl-fs'
 
-module.exports = (src, dest, preview) => () => {
+export default (src, dest, preview) => () => {
   const opts = { base: src, cwd: src }
   const sourcemaps = preview || process.env.SOURCEMAPS === 'true'
   const postcssPlugins = [
@@ -89,10 +89,10 @@ module.exports = (src, dest, preview) => () => {
         ? through()
         : imagemin(
           [
-            imagemin.gifsicle(),
-            imagemin.jpegtran(),
-            imagemin.optipng(),
-            imagemin.svgo({
+            gifsicle(),
+            jpegtran(),
+            optipng(),
+            svgo({
               plugins: [
                 { cleanupIDs: { preservePrefixes: ['icon-', 'view-'] } },
                 { removeViewBox: false },
@@ -106,7 +106,7 @@ module.exports = (src, dest, preview) => () => {
     vfs.src('layouts/*.hbs', opts),
     vfs.src('partials/*.hbs', opts),
     vfs.src('static/**/*[!~]', { ...opts, base: ospath.join(src, 'static'), dot: true })
-  ).pipe(vfs.dest(dest, { sourcemaps: sourcemaps && '.' }))
+  ).pipe(vfs.dest(dest, { sourcemaps: sourcemaps && '.', encoding: false }))
 }
 
 function bundle ({ base: basedir, ext: bundleExt = '.bundle.js' }) {
