@@ -1,0 +1,51 @@
+The easiest way to install runner on a Red Hat, CentOS, or Fedora system is to use CircleCI's pre-built packages.
+
+. On the target machine, install the CircleCI registry:
++
+```shell
+curl -s https://packagecloud.io/install/repositories/circleci/runner/script.rpm.sh?any=true | sudo bash
+
+```
+
+. Next, install the `circleci-runner` package:
++
+```shell
+sudo yum install circleci-runner -y
+
+```
+
+. Replace `<< AUTH_TOKEN >>` with the token generated in the steps above. You may use your text editor to do this, or edit and run the following commands to replace the token automatically:
++
+```shell
+export RUNNER_AUTH_TOKEN="your-runner-auth-token-here"
+sudo sed -i "s/<< AUTH_TOKEN >>/$RUNNER_AUTH_TOKEN/g" /etc/circleci-runner/circleci-runner-config.yaml
+
+```
+
+ifdef::server[]
+. Provide the URL for your CircleCI Server installation. You can do this by either setting the `CIRCLECI_RUNNER_API_URL` environment variable:
++
+[source,console]
+----
+$ export CIRCLECI_RUNNER_API_URL=<my-server-url>
+----
++
+Or by adding the URL to `/etc/circleci-runner/circleci-runner-config.yaml` using the text editor of your choice.
++
+```yaml
+api:
+  auth_token: << AUTH_TOKEN >>
+  # Set url to the hostname of your server installation.
+  url: <my-server-url>
+```
+
+endif::server[]
+. Enable and start the `circleci-runner service`, and check that it is currently running:
++
+```shell
+sudo systemctl enable circleci-runner && sudo systemctl start circleci-runner
+
+# Check status
+sudo systemctl status circleci-runner
+
+```

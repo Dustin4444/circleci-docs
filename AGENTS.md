@@ -62,10 +62,26 @@ All pages require standard attributes (`:page-platform:`, `:page-audience:`, `:p
 - Assume technical competence but explain concepts clearly and simply
 - Complex concepts should be accessible to non-technical readers
 
+### Current Product Behavior Only
+- Docs state what the product does now. Do not document planned, upcoming, or aspirational behavior
+- Do not write "will be supported from", "coming soon", or a future version number for a feature that is not yet available
+- If a feature is unavailable on a platform, say so plainly and leave out when it might arrive
+- **Good**: `$CIRCLE_OIDC_TOKEN_V3` is not available on server.
+- **Bad**: `$CIRCLE_OIDC_TOKEN_V3` will be supported from server v5.0+.
+
 ### CircleCI-Specific Terminology
 - The CircleCI web interface is the "web app"
 - Use "CI/CD" to describe what we do
-- Pipelines are **triggered**, not "run"
+- A pipeline is the definition of what code to run and which config to use. It does not run and is not triggered
+- A **trigger** starts a **run** (the web app labels it "Pipeline run"). Write "trigger a pipeline run" or "a run is triggered", not "trigger a pipeline" or "run a pipeline"
+- **Workflows** and **jobs** run. Runs and pipelines do not
+- **Good**: Push a commit to trigger a pipeline run.
+- **Good**: Push a commit to trigger a run.
+- **Good**: The workflow starts once the pipeline run is triggered.
+- **Good**: The workflow starts once the run is triggered.
+- **Bad**: Push a commit to trigger your pipeline.
+- **Bad**: Run the pipeline to build your project.
+- **Bad**: The pipeline runs when you push a commit.
 - Feature names are rarely capitalized (exceptions: Insights)
 
 ## Numbers
@@ -262,6 +278,10 @@ Example verification process:
 link:https://circleci.com[CircleCI]
 ```
 - Links must have descriptive link text (not "click here", "here", or "this")
+- **Use title case for link text on CircleCI-owned URLs** (including API reference docs at `circleci.com/docs/api/`):
+ - **Good**: `link:https://circleci.com/docs/api/v3#tag/triggers[API v3 Triggers Reference]`
+ - **Bad**: `link:https://circleci.com/docs/api/v3#tag/triggers[Triggers section of the API v3 docs]`
+- **Links to third-party sites may use sentence case** (match the name or title as it appears on that site)
 
 ### Code Samples
 - **Reuse shared snippets** from `docs/guides/modules/ROOT/examples/` when the same config already exists. Include them with `example$` inside a source block. Follow `skills/partials/SKILL.md` to discover, insert, or extract examples.
@@ -282,6 +302,16 @@ $ circleci version
 ----
 ```
 - The dollar sign won't be copied with the copy button
+- **For commands with a multi-line body**, such as a JSON payload or heredoc, use `shell` without a dollar sign. The copy button only copies lines that start with `$ `, so a `console` block would lose the body:
+```adoc
+[source,shell]
+----
+curl --request POST https://example.com/api \
+  --data '{
+    "key": "value"
+  }'
+----
+```
 - When users need to substitute data, use `<my-data>` format
 - Point out what needs replacement, including whether to replace `< >` or `" "`
 - **Show full job or workflow**, not just relevant lines
@@ -319,6 +349,7 @@ some code
 ```
 - **Capitalize first word** of each list item
 - **Use periods** if item is a full sentence or completes the intro stem
+- **Split literal-heavy paragraphs into lists**: a paragraph with three or more inline code spans or literal values is hard to read. Use a bulleted or description list where it fits, for example one item per format or variant
 
 ### Tables
 - Wrap tables in scrollable container:
@@ -523,6 +554,43 @@ Content for Tab B
 ====
 ```
 
+### Cloud and Server Content
+
+The `guides` component builds twice from one set of source files: a Cloud build (the unversioned default) and a Server build (latest release). The Server build sets the AsciiDoc attribute `server`. The Cloud build does not. There is no `cloud` attribute. The `enabled` setting on the `guides-versions-extension.js` entry in `antora-playbook.yml` turns the Server build on or off. The human-facing version of this section is `docs/contributors/modules/docs-style/pages/cloud-and-server-content.adoc`.
+
+**Decide first.** Most content is the same on both platforms, so use as few conditionals as possible.
+
+- If the text is correct for both platforms, leave it alone. Do not hide Cloud examples or comparison tables from Server readers.
+- If a feature does not exist on Server, wrap it in `ifndef::server[]`.
+- If Server works differently, keep the Cloud text unchanged and add a Server variant in `ifdef::server[]`.
+- If only the version differs, state the version in the text ("from Server 4.9"). Do not branch on version, and do not use `ifeval`.
+
+**Syntax.** Put each directive on its own line.
+
+```adoc
+ifndef::server[]
+Cloud-only content.
+endif::server[]
+ifdef::server[]
+Server-only content.
+endif::server[]
+```
+
+**Rules:**
+
+- Use `ifndef::server[]` for Cloud-only content and `ifdef::server[]` for Server-only content. Never test for a `cloud` attribute, because partials are shared with the `reference` component.
+- **Cloud output must not change** when you add conditionals to an existing page. Keep the original Cloud text byte-for-byte inside `ifndef::server[]`. Put wanted Cloud wording changes in a separate commit or pull request.
+- Whole-page availability comes from metadata (`:page-platform:`, `:page-server-min-version:`, `:page-server-deprecated-in:`), not conditionals. Never wrap page attributes, such as `:page-description:`, in conditionals.
+- Do not put conditionals inside `[tabs]` blocks. Move the tab body into a partial and include it in the tab and in an `ifdef::server[]` block.
+- Do not put a directive mid-sentence. Write two complete sentences.
+- Keep one explicit kebab-case heading ID for both builds. Do not wrap the `[#id]` line.
+- Close every directive. Unbalanced conditionals fail Vale (`AsciiDoc.ValidConditions`).
+- Wrap an xref to a Cloud-only page (`:page-platform: Cloud`) in `ifndef::server[]`. The Server build replaces unwrapped links with plain text and lists them in `extensions/.temp/guides-server-unlinked.md`. The `maxunlinkedxrefs` setting in `antora-playbook.yml` fails the build if the count rises.
+- On Server, name the web app without a link. Link to `app.circleci.com` only on Cloud. When an example uses `circleci.com`, add a Server note to replace it with the Server hostname.
+- The pipeline type table in `docs/guides/modules/integration/pages/version-control-system-integration-overview.adoc` ("GitHub OAuth on Server" column) is the source of truth for Server support. If unsure, ask rather than guess.
+
+**Verify.** Build `main` and your branch with `npm run build:docs`, then diff the HTML in `build/`. Ignore `edit/<branch>/` URLs and timestamps in the sitemap and `llms.txt`. Treat any other difference as a real change to Cloud output. To preview the Server build, set `enabled: true` on the `guides-versions-extension.js` entry in `antora-playbook.yml`, and do not commit that change.
+
 ## Common Mistakes to Avoid
 
 1. Passive voice constructions
@@ -544,6 +612,8 @@ Content for Tab B
 17. Using AsciiDoc underscore heading IDs (`<<_install_circleci_agent_skills>>`) instead of the site kebab-case ID (`<<install-circleci-agent-skills>>`)
 18. Unnecessary semicolons (prefer a period or a comma)
 19. En dashes, or dashes used to separate an item and its description
+20. Documenting planned or future behavior, such as "will be supported from v5.0"
+21. Paragraphs dense with inline code or literal values that should be a bulleted list
 
 ## AsciiDoc Validation Rules
 - Close all attribute blocks properly

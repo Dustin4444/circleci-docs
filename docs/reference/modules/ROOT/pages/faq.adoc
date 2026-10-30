@@ -22,10 +22,10 @@ This page answers frequently asked questions about the following CircleCI topics
 | <<pipelines>>
 
 | <<host-circleci>>
-| <<schedule-triggers>>
-
 | <<architecture>>
+
 | <<workflows>>
+|
 
 | <<orbs>>
 | <<dynamic-configuration>>
@@ -71,16 +71,12 @@ include::guides:ROOT:partial$faq/orb-author-faq-snip.adoc[]
 [#self-hosted-runner]
 == Self-hosted runner
 
-include::guides:ROOT:partial$faq/self-hosted-runner-faq-snip.adoc[]
+include::runner:ROOT:partial$faq/self-hosted-runner-faq-snip.adoc[]
 
 [#pipelines]
 == Pipelines
 
 include::guides:ROOT:partial$faq/pipelines-faq-snip.adoc[]
-
-== Schedule triggers
-
-include::guides:ROOT:partial$faq/schedule-trigger-faq-snip.adoc[]
 
 [#workflows]
 == Workflows

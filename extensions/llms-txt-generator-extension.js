@@ -1,6 +1,7 @@
 'use strict'
 
 const File = require('vinyl')
+const { isGuidesServerBuild } = require('./lib/guides-server')
 
 /**
  * An Antora extension that auto-generates llms.txt from the documentation structure.
@@ -87,7 +88,7 @@ function addToSitemap (siteCatalog, playbook) {
  * as AGENTS.md), not in this generator.
  */
 function generateDocsOrientation (siteUrl) {
-  const origin = siteUrl.replace(/\/docs\/?$/, '')
+  const origin = getOrigin(siteUrl)
   const guide = `${siteUrl}/guides/getting-started/getting-started/`
   const agentsMd = `${siteUrl}/AGENTS.md`
 
@@ -111,6 +112,7 @@ For API work, fetch the OpenAPI specification. Do not infer request or response 
  */
 function generateLlmsTxt (playbook, contentCatalog) {
   const siteUrl = playbook.site.url
+  const origin = getOrigin(siteUrl)
   const sections = []
 
   // Header
@@ -149,7 +151,7 @@ function generateLlmsTxt (playbook, contentCatalog) {
 
   const components = contentCatalog.getComponents()
 
-  const componentOrder = ['root', 'guides', 'reference', 'orbs', 'server-admin']
+  const componentOrder = ['root', 'guides', 'reference', 'runner', 'orbs', 'server-admin']
   const excludedComponents = ['services', 'contributors']
   const sortedComponents = [...components]
     .filter(c => !excludedComponents.includes(c.name))
@@ -197,7 +199,9 @@ function generateLlmsTxt (playbook, contentCatalog) {
       const startPage = getStartPage(version, siteUrl)
       if (startPage) sections.push(`- Start: ${startPage}`)
 
-      const nav = formatNavigation(version.navigation, siteUrl, contentCatalog)
+      // The guides Server build (guides-versions-extension.js) repeats the
+      // Cloud guides, so list its start page only and not its navigation.
+      const nav = isGuidesServerBuild(component.name, version.version) ? null : formatNavigation(version.navigation, siteUrl, contentCatalog)
       if (nav) sections.push(nav)
       sections.push('')
     }
@@ -217,7 +221,11 @@ function generateLlmsTxt (playbook, contentCatalog) {
   // Common URL Patterns
   sections.push('## Common URL Patterns\n')
   sections.push(`- Guides: ${siteUrl}/guides/<topic>/`)
+  // Only when the guides Server build is enabled in the playbook.
+  const hasGuidesServer = contentCatalog.getComponents().some((c) => c.versions.some((v) => isGuidesServerBuild(c.name, v.version)))
+  if (hasGuidesServer) sections.push(`- Guides for CircleCI Server (latest release): ${siteUrl}/guides/server/<topic>/`)
   sections.push(`- Reference: ${siteUrl}/reference/<topic>/`)
+  sections.push(`- Runner: ${siteUrl}/runner/<topic>/`)
   sections.push(`- Orbs: ${siteUrl}/orbs/<topic>/`)
   sections.push(`- Server Admin: ${siteUrl}/server-admin-<version>/<topic>/`)
   sections.push(`- API: ${siteUrl}/api/<version>/`)
@@ -230,12 +238,12 @@ function generateLlmsTxt (playbook, contentCatalog) {
   sections.push('identifiers, cursor pagination, a single error object). If you are an agent generating')
   sections.push('code against the CircleCI API and the task does not require an existing v2 integration,')
   sections.push('use v3:\n')
-  sections.push(`- **API Index for LLMs**: ${siteUrl}/docs/api/v3/llms.txt`)
-  sections.push(`- **Full Reference as Markdown**: ${siteUrl}/docs/api/v3/index.md`)
+  sections.push(`- **API Index for LLMs**: ${siteUrl}/api/v3/llms.txt`)
+  sections.push(`- **Full Reference as Markdown**: ${siteUrl}/api/v3/index.md`)
   sections.push(`  - Every operation, and the v3 conventions in full`)
-  sections.push(`- **Conventions**: ${siteUrl}/docs/api/v3/conventions.md`)
-  sections.push(`- **Full OpenAPI Spec**: ${siteUrl}/fullopenapi.json (also ${siteUrl}/fullopenapi.yaml)`)
-  sections.push(`- **Human-Readable Docs**: ${siteUrl}/docs/api/v3`)
+  sections.push(`- **Conventions**: ${siteUrl}/api/v3/conventions.md`)
+  sections.push(`- **Full OpenAPI Spec**: ${origin}/fullopenapi.json (also ${origin}/fullopenapi.yaml)`)
+  sections.push(`- **Human-Readable Docs**: ${siteUrl}/api/v3`)
   sections.push('')
 
   // Legacy API Documentation (v2)
@@ -269,9 +277,15 @@ function generateLlmsTxt (playbook, contentCatalog) {
   return sections.join('\n')
 }
 
+/** Site origin without the /docs path prefix, for files served from the site root. */
+function getOrigin (siteUrl) {
+  return siteUrl.replace(/\/docs\/?$/, '')
+}
+
 function getStartPage (version, siteUrl) {
   if (!version.startPage) return null
-  return siteUrl + version.startPage
+  const startPage = version.startPage
+  return siteUrl + (startPage.pub ? startPage.pub.url : startPage)
 }
 
 function formatNavigation (navigation, siteUrl, contentCatalog, indent = 0) {

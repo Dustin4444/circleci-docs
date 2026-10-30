@@ -13,7 +13,7 @@ A CircleCI pipeline is generally defined by a CircleCI configuration file. You c
 
 Running your GitHub Actions workflow as it is helps when you want to move work onto CircleCI without rewriting your configuration first. It also lets you compare the two platforms using the same workflow. A subset of GitHub Actions features is supported. Before you start, check the <<github-actions-feature-support,GitHub Actions Feature Support>> section to confirm your workflow uses supported features.
 
-TIP: If you would rather convert your workflow into CircleCI syntax, see the xref:migrate:migrating-from-github.adoc[Migrate From GitHub Actions] page and the link:https://circleci.com/developer/tools/configTranslator[CircleCI configuration translator].
+TIP: If you would rather convert your workflow into CircleCI syntax, see the xref:migrate:migrating-from-github.adoc[Migrate From GitHub Actions] page.
 
 == Prerequisites
 
@@ -444,7 +444,7 @@ If a feature does not appear in this section, treat it as unsupported.
 
 | `set-env` and `add-path` workflow commands
 | [.circle-red]#**Not supported**#
-| Disabled for security reasons, following link:https://github.com/advisories/GHSA-mfq2-61fr-9j23[CVE-2020-15228]. CircleCI logs a warning and does not apply the value. Use the `GITHUB_ENV` and `GITHUB_PATH` environment files instead. See <<actions-that-set-the-path,Actions That Set the Path>> for the effect this has on some common actions.
+| Disabled for security reasons, following link:https://github.com/advisories/GHSA-mfwh-5m23-j46w[CVE-2020-15228]. CircleCI logs a warning and does not apply the value. Use the `GITHUB_ENV` and `GITHUB_PATH` environment files instead. See <<actions-that-set-the-path,Actions That Set the Path>> for the effect this has on some common actions.
 
 | `set-output` and `save-state` workflow commands
 | **No effect**

@@ -13,6 +13,10 @@ This glossary defines terms used across the CircleCI product and documentation. 
 
 Any user, registered or unregistered, who triggers the use of compute resources on projects that are not open source during a billing period. Commits, reruns, approvals, scheduled triggers, and machine users can all make a user active. Active users are counted for billing. See the xref:guides:plans-pricing:user-types-and-registration.adoc[User Types and Registration] page.
 
+== Analysis
+
+include::guides:ROOT:partial$glossary/smarter-testing.adoc[tag=analysis]
+
 == Approval job
 
 A special job, configured with `type: approval`, that pauses a <<workflow>> until a user with the required permissions manually approves it. An approval job runs no steps of its own. It acts as a manual gate before downstream jobs continue. See the xref:guides:orchestrate:workflows.adoc[Workflows] page.
@@ -25,9 +29,13 @@ A file or directory that persists after a <<job>> finishes, such as a compiled b
 
 A record of significant events in a CircleCI organization, available to organization admins for audit and forensic analysis. See the xref:guides:security:audit-logs.adoc[Audit Logs] page.
 
+== Auto rerun failed tests
+
+include::guides:ROOT:partial$glossary/smarter-testing.adoc[tag=auto-rerun-failed-tests]
+
 == Build agent
 
-On CircleCI Server, the CircleCI program that executes the steps within a job and reports the results. The build agent runs as the main process inside a Nomad job allocation. See the xref:guides:plans-pricing:plan-server.adoc[CircleCI Server] page.
+On CircleCI Server, the CircleCI program that executes the steps within a job and reports the results. The build agent runs as the main process inside a Nomad job allocation. See the xref:server-admin:overview:circleci-server-overview.adoc[CircleCI Server] page.
 
 == Built-in environment variable
 
@@ -47,7 +55,7 @@ The command-line interface you install on your local machine to validate and deb
 
 == CircleCI Server
 
-CircleCI's on-premises CI/CD platform for organizations that must operate within their own firewall, private cloud, or data center. CircleCI Server runs in a Kubernetes cluster and provides the same core features as CircleCI Cloud. See the xref:guides:plans-pricing:plan-server.adoc[CircleCI Server] page.
+CircleCI's on-premises CI/CD platform for organizations that must operate within their own firewall, private cloud, or data center. CircleCI Server runs in a Kubernetes cluster and provides the same core features as CircleCI Cloud. See the xref:server-admin:overview:circleci-server-overview.adoc[CircleCI Server] page.
 
 == Command
 
@@ -75,7 +83,7 @@ A running instance of an <<image>>.
 
 == Container runner
 
-A type of <<self-hosted-runner>> installed in a Kubernetes cluster that runs containerized jobs in ephemeral pods. Container runner complements the <<machine-runner>> for high-concurrency, container-based workloads. See the xref:guides:execution-runner:container-runner.adoc[Container Runner] page.
+A type of <<self-hosted-runner>> installed in a Kubernetes cluster that runs containerized jobs in ephemeral pods. Container runner complements the <<machine-runner>> for high-concurrency, container-based workloads. See the xref:runner:ROOT:container-runner.adoc[Container Runner] page.
 
 == Context
 
@@ -83,7 +91,7 @@ A mechanism for securing and sharing <<environment-variable,environment variable
 
 == Convenience image
 
-A prebuilt Docker <<image>> maintained by CircleCI with popular languages and tools preinstalled. Next-generation convenience images use the `cimg/` namespace on Docker Hub and offer faster spin-up and improved stability over legacy images. See the xref:guides:execution-managed:circleci-images.adoc[CircleCI Images] page. Compare with <<custom-image>> and <<machine-image>>.
+A prebuilt Docker <<image>> maintained by CircleCI with popular languages and tools preinstalled. Next-generation convenience images use the `cimg/` namespace on Docker Hub and offer faster spin-up and improved stability over legacy images. See the xref:guides:execute:circleci-images.adoc[CircleCI Images] page. Compare with <<custom-image>> and <<machine-image>>.
 
 == Credit
 
@@ -95,7 +103,7 @@ A <<trigger>> that initiates a run in one repository when an event, such as a ta
 
 == Custom image
 
-A Docker <<image>> that you build and maintain yourself, typically from a Dockerfile stored in a registry. Use a custom image with the <<docker-executor>> when convenience images do not meet your needs. See the xref:guides:execution-managed:custom-images.adoc[Using Custom-Built Docker Images] page.
+A Docker <<image>> that you build and maintain yourself, typically from a Dockerfile stored in a registry. Use a custom image with the <<docker-executor>> when convenience images do not meet your needs. See the xref:guides:execute:custom-images.adoc[Using Custom-Built Docker Images] page.
 
 == Custom webhook
 
@@ -116,15 +124,23 @@ The act of putting a new <<component>> version into an <<environment>>, regardle
 [#docker-executor]
 == Docker executor
 
-The <<executor>> (`docker`) that runs a job inside one or more Docker containers, providing the Docker <<execution-environment,execution environment>>. The Docker executor is resource-efficient and well suited to most build and test jobs. See the xref:guides:execution-managed:executor-intro.adoc[Introduction to Execution Environments] page.
+The <<executor>> (`docker`) that runs a job inside one or more Docker containers, providing the Docker <<execution-environment,execution environment>>. The Docker executor is resource-efficient and well suited to most build and test jobs. See the xref:guides:execute:executor-intro.adoc[Introduction to Execution Environments] page.
 
 == Docker layer caching
 
-Docker Layer Caching (DLC) lets builds reuse Docker image layers from previous builds so that jobs which build Docker images run faster on subsequent runs. Layers can only be reused by builds from the same project. See the xref:guides:optimize:docker-layer-caching.adoc[Docker Layer Caching] and xref:guides:execution-managed:building-docker-images.adoc[Running Docker Commands] pages.
+Docker Layer Caching (DLC) lets builds reuse Docker image layers from previous builds so that jobs which build Docker images run faster on subsequent runs. Layers can only be reused by builds from the same project. See the xref:guides:optimize:docker-layer-caching.adoc[Docker Layer Caching] and xref:guides:execute:building-docker-images.adoc[Running Docker Commands] pages.
 
 == Dynamic configuration
 
 A feature that lets a run determine the work it executes at runtime, based on pipeline parameters, changed file paths, or other conditions, rather than using fully static configuration. Dynamic configuration is enabled with a <<setup-workflow>> (`setup: true`). See the xref:guides:orchestrate:dynamic-config.adoc[Dynamic Configuration] page.
+
+== Dynamic parallelism
+
+include::guides:ROOT:partial$glossary/smarter-testing.adoc[tag=dynamic-parallelism]
+
+== Dynamic test splitting
+
+include::guides:ROOT:partial$glossary/smarter-testing.adoc[tag=dynamic-test-splitting]
 
 == Environment
 
@@ -144,11 +160,11 @@ The inbound occurrence that happened in the world. An event could be a webhook d
 
 == Execution environment
 
-The runtime in which a <<job>> runs, either a Docker container or a virtual machine. CircleCI offers the Docker, Linux VM, macOS, Windows, GPU, Android, and Arm VM execution environments. You choose an <<executor>> (`docker`, `machine`, or `macos`) and an image, and those together determine the environment. See the xref:guides:execution-managed:executor-intro.adoc[Introduction to Execution Environments] page.
+The runtime in which a <<job>> runs, either a Docker container or a virtual machine. CircleCI offers the Docker, Linux VM, macOS, Windows, GPU, Android, and Arm VM execution environments. You choose an <<executor>> (`docker`, `machine`, or `macos`) and an image, and those together determine the environment. See the xref:guides:execute:executor-intro.adoc[Introduction to Execution Environments] page.
 
 == Executor
 
-The type you assign to a <<job>> that defines the underlying technology used to run it. CircleCI has three executors: `docker`, `machine`, and `macos`. For example, the `machine` executor can run a job in the Linux VM, Windows, GPU, Android, or Arm VM execution environment. In configuration an `executor` is also a named, parameterizable definition that multiple jobs can share. See the xref:guides:execution-managed:executor-intro.adoc[Introduction to Execution Environments] and xref:reference:ROOT:reusing-config.adoc[Reusable Config Reference] pages.
+The type you assign to a <<job>> that defines the underlying technology used to run it. CircleCI has three executors: `docker`, `machine`, and `macos`. For example, the `machine` executor can run a job in the Linux VM, Windows, GPU, Android, or Arm VM execution environment. In configuration an `executor` is also a named, parameterizable definition that multiple jobs can share. See the xref:guides:execute:executor-intro.adoc[Introduction to Execution Environments] and xref:reference:ROOT:reusing-config.adoc[Reusable Config Reference] pages.
 
 == Fan-out/fan-in
 
@@ -160,11 +176,15 @@ The mechanisms for controlling whether a <<job>>, <<workflow>>, or <<step>> runs
 
 == Flaky test
 
-A test that passes and fails inconsistently without changes to the code under test. CircleCI identifies a test as flaky when it both fails and passes on the same commit within a set time window. See the xref:guides:test:fix-flaky-tests.adoc[Identify and Fix Flaky Tests] page.
+A test that passes and fails inconsistently without changes to the code under test. CircleCI identifies a test as flaky when it both fails and passes on the same commit within a set time window. See the xref:guides:test:fix-flaky-tests.adoc[Identify and Fix Flaky Tests] page. To retry flaky tests automatically, see <<auto-rerun-failed-tests>>.
 
 == Image
 
 A packaged system that includes the instructions for creating a running <<container>>. The <<primary-container>> is defined by the first image listed in your <<configuration,configuration file>>. Visit the https://circleci.com/developer/images[CircleCI Developer Hub] to browse available convenience and machine images. See also <<convenience-image>>, <<machine-image>>, and <<custom-image>>.
+
+== Impact data
+
+include::guides:ROOT:partial$glossary/smarter-testing.adoc[tag=impact-data]
 
 == Insights
 
@@ -180,23 +200,23 @@ A collection of <<step,steps>> that run in a single <<execution-environment>>. E
 
 == Machine executor
 
-The <<executor>> (`machine`) that runs a job in a dedicated, ephemeral virtual machine with full operating-system access. Depending on the image you specify, the machine executor provides the Linux VM, Windows, GPU, Android, or Arm VM <<execution-environment,execution environment>>. See the xref:guides:execution-managed:executor-intro.adoc[Introduction to Execution Environments] page.
+The <<executor>> (`machine`) that runs a job in a dedicated, ephemeral virtual machine with full operating-system access. Depending on the image you specify, the machine executor provides the Linux VM, Windows, GPU, Android, or Arm VM <<execution-environment,execution environment>>. See the xref:guides:execute:executor-intro.adoc[Introduction to Execution Environments] page.
 
 == Machine image
 
-A prebuilt virtual machine image for the <<machine-executor>>, available for Linux, macOS, Windows, Android, and GPU environments. See the xref:guides:execution-managed:executor-intro.adoc[Introduction to Execution Environments] page.
+A prebuilt virtual machine image for the <<machine-executor>>, available for Linux, macOS, Windows, Android, and GPU environments. See the xref:guides:execute:executor-intro.adoc[Introduction to Execution Environments] page.
 
 == Machine provisioner
 
-On CircleCI Server, the service that dynamically provisions and manages the virtual machines used by jobs configured for the machine execution environment, as well as Remote Docker jobs. See the xref:guides:plans-pricing:plan-server.adoc[CircleCI Server] page.
+On CircleCI Server, the service that dynamically provisions and manages the virtual machines used by jobs configured for the machine execution environment, as well as Remote Docker jobs. See the xref:server-admin:overview:circleci-server-overview.adoc[CircleCI Server] page.
 
 == Machine runner
 
-A type of <<self-hosted-runner>> installed directly on a Linux, macOS, or Windows machine, where it executes jobs in the same environment the runner binary is installed in. The current version is machine runner 3, which replaces the deprecated launch agent. See the xref:guides:execution-runner:runner-overview.adoc[CircleCI Runner Overview] page.
+A type of <<self-hosted-runner>> installed directly on a Linux, macOS, or Windows machine, where it executes jobs in the same environment the runner binary is installed in. The current version is machine runner 3, which replaces the deprecated launch agent. See the xref:runner:ROOT:runner-overview.adoc[CircleCI Runner Overview] page.
 
 == macOS executor
 
-The <<executor>> (`macos`) that runs a job in a macOS virtual machine with Xcode available, providing the macOS <<execution-environment,execution environment>>. Used for iOS and macOS development and testing. See the xref:guides:execution-managed:using-macos.adoc[Using the macOS Execution Environment] page.
+The <<executor>> (`macos`) that runs a job in a macOS virtual machine with Xcode available, providing the macOS <<execution-environment,execution environment>>. Used for iOS and macOS development and testing. See the xref:guides:execute:using-macos.adoc[Using the macOS Execution Environment] page.
 
 == Matrix job
 
@@ -213,12 +233,12 @@ An additional layer of account security that requires a second verification fact
 
 == Namespace
 
-A unique, immutable identifier that groups an organization's resources under a single owner. Each user or organization claims one namespace, typically the lowercase VCS organization name. The same namespace groups your registry <<orbs>> by author and identifies your <<self-hosted-runner,self-hosted runners>>. For runners, it is combined with a resource-class name to form the full runner <<resource-class>> label. See the xref:orbs:use:orb-concepts.adoc[Orb Concepts] and xref:guides:execution-runner:runner-concepts.adoc[Runner Concepts] pages.
+A unique, immutable identifier that groups an organization's resources under a single owner. Each user or organization claims one namespace, typically the lowercase VCS organization name. The same namespace groups your registry <<orbs>> by author and identifies your <<self-hosted-runner,self-hosted runners>>. For runners, it is combined with a resource-class name to form the full runner <<resource-class>> label. See the xref:orbs:use:orb-concepts.adoc[Orb Concepts] and xref:runner:ROOT:runner-concepts.adoc[Runner Concepts] pages.
 
 [#oidc-token]
 == OpenID Connect (OIDC) token
 
-A token issued by CircleCI that lets a job authenticate with a cloud provider without storing long-lived credentials. CircleCI provides OIDC tokens in the `CIRCLE_OIDC_TOKEN` and `CIRCLE_OIDC_TOKEN_V2` environment variables, with claims identifying the organization, project, and job. See the xref:guides:permissions-authentication:openid-connect-tokens.adoc[Using OpenID Connect Tokens] page.
+A token issued by CircleCI that lets a job authenticate with a cloud provider without storing long-lived credentials. CircleCI provides OIDC tokens in the `CIRCLE_OIDC_TOKEN`, `CIRCLE_OIDC_TOKEN_V2`, and `CIRCLE_OIDC_TOKEN_V3` environment variables, with claims identifying the organization, project, and job. See the xref:guides:permissions-authentication:openid-connect-tokens.adoc[Using OpenID Connect Tokens] page.
 
 == Orbs
 
@@ -258,7 +278,7 @@ Metadata about a pipeline that CircleCI makes available automatically, without d
 
 == Primary container
 
-The first <<image>> listed in your <<configuration,configuration file>> for a Docker job. The job's steps run in the primary container. See the xref:guides:execution-managed:executor-intro.adoc[Introduction to Execution Environments] page. Compare with <<service-container,service container>>.
+The first <<image>> listed in your <<configuration,configuration file>> for a Docker job. The job's steps run in the primary container. See the xref:guides:execute:executor-intro.adoc[Introduction to Execution Environments] page. Compare with <<service-container,service container>>.
 
 == Private orb
 
@@ -288,15 +308,19 @@ A tool installed in a Kubernetes cluster that lets you manage deployments throug
 
 == Remote Docker
 
-A feature that enables building, running, and pushing Docker images to registries from within a <<docker-executor>> job, using the `setup_remote_docker` key. See the xref:guides:execution-managed:building-docker-images.adoc[Running Docker Commands] page.
+A feature that enables building, running, and pushing Docker images to registries from within a <<docker-executor>> job, using the `setup_remote_docker` key. See the xref:guides:execute:building-docker-images.adoc[Running Docker Commands] page.
 
 == Rerun
 
-Re-executing a failed <<workflow>>, or individual failed <<job,jobs>> within it, to recover from transient failures without initiating a new <<run>>. See the xref:guides:orchestrate:workflows.adoc[Workflows] page. For tests specifically, see <<test-splitting>> and the xref:guides:test:rerun-failed-tests.adoc[Rerun Failed Tests] page.
+Re-executing a failed <<workflow>>, or individual failed <<job,jobs>> within it, to recover from transient failures without initiating a new <<run>>. See the xref:guides:orchestrate:workflows.adoc[Workflows] page. For tests specifically, see <<rerun-only-failed-tests>> and <<auto-rerun-failed-tests>>.
+
+== Rerun only failed tests
+
+include::guides:ROOT:partial$glossary/smarter-testing.adoc[tag=rerun-only-failed-tests]
 
 == Resource class
 
-A configuration option that specifies the compute resources, such as CPU and RAM, allocated to a <<job>>. A resource class is also used as a label to identify a pool of <<self-hosted-runner,self-hosted runners>> and to route a job to that pool. See the xref:guides:execution-managed:resource-class-overview.adoc[Resource Class Overview] page.
+A configuration option that specifies the compute resources, such as CPU and RAM, allocated to a <<job>>. A resource class is also used as a label to identify a pool of <<self-hosted-runner,self-hosted runners>> and to route a job to that pool. See the xref:guides:execute:resource-class-overview.adoc[Resource Class Overview] page.
 
 == Rollback
 
@@ -316,20 +340,28 @@ A security feature that obscures environment variable and context values in job 
 
 == Self-hosted runner
 
-A CircleCI agent installed on your own infrastructure, such as Kubernetes, virtual machines, or physical hardware, that claims and executes jobs on hardware or architectures you control. The two types are <<container-runner>> and <<machine-runner>>. See the xref:guides:execution-runner:runner-overview.adoc[CircleCI Runner Overview] page.
+A CircleCI agent installed on your own infrastructure, such as Kubernetes, virtual machines, or physical hardware, that claims and executes jobs on hardware or architectures you control. The two types are <<container-runner>> and <<machine-runner>>. See the xref:runner:ROOT:runner-overview.adoc[CircleCI Runner Overview] page.
 
 == Service container
 
-An additional <<image>> listed in a job's configuration that runs alongside the <<primary-container>>, typically to provide a service such as a database. Also called a secondary container. See the xref:guides:execution-managed:executor-intro.adoc[Introduction to Execution Environments] page.
+An additional <<image>> listed in a job's configuration that runs alongside the <<primary-container>>, typically to provide a service such as a database. Also called a secondary container. See the xref:guides:execute:executor-intro.adoc[Introduction to Execution Environments] page.
 
 [#sso]
 == Single sign-on (SSO)
 
 An authentication method that lets users authenticate once through an identity provider, using the SAML 2.0 protocol, to access an organization's CircleCI resources. See the xref:guides:permissions-authentication:sso-overview.adoc[SSO Overview] page.
 
+== Smarter Testing
+
+include::guides:ROOT:partial$glossary/smarter-testing.adoc[tag=smarter-testing] See the xref:guides:test:smarter-testing-overview.adoc[Smarter Testing Overview] page.
+
 == SSH key
 
 A cryptographic key pair used for authentication in CircleCI. A deploy key gives CircleCI access to check out a single repository. A user key is associated with a user account and can give access to multiple repositories. See the xref:guides:security:rotate-project-ssh-keys.adoc[Rotate Project SSH Keys] page.
+
+== Static test splitting
+
+include::guides:ROOT:partial$glossary/smarter-testing.adoc[tag=static-test-splitting]
 
 == Step
 
@@ -339,14 +371,33 @@ A single executable action within a <<job>>, such as a `run`, `checkout`, `save_
 
 A <<workflow,workflow>> marked with `setup: true` that runs first in a <<dynamic-configuration,dynamic configuration>>. A setup workflow can compute pipeline parameters and select which configuration to continue with, enabling conditional execution of the remaining workflows. See the xref:guides:orchestrate:dynamic-config.adoc[Dynamic Configuration] page.
 
-[badge="Beta"]
+== Test atom
+
+include::guides:ROOT:partial$glossary/smarter-testing.adoc[tag=test-atom]
+
 == Test impact analysis
 
-A feature that runs only the tests affected by a code change. Test impact analysis maps which tests exercise which source files and skips tests covering unchanged files, to speed up CI. See the xref:guides:test:set-up-test-impact-analysis.adoc[Set Up Test Impact Analysis] page.
+include::guides:ROOT:partial$glossary/smarter-testing.adoc[tag=test-impact-analysis]
+
+== Test selection
+
+include::guides:ROOT:partial$glossary/smarter-testing.adoc[tag=test-selection]
 
 == Test splitting
 
-Dividing a test suite across multiple parallel execution environments, by name, file size, or historical timing data, to reduce overall test time. Test splitting works together with <<parallelism>>. See the xref:guides:optimize:parallelism-faster-jobs.adoc[Running Tests in Parallel] page.
+Dividing a test suite across multiple parallel execution environments, by name, file size, or historical timing data, to reduce overall test time. Test splitting works together with <<parallelism>>. See the xref:guides:optimize:parallelism-faster-jobs.adoc[Running Tests in Parallel] page. With Smarter Testing, see <<static-test-splitting>> and <<dynamic-test-splitting>>.
+
+== Test suite
+
+include::guides:ROOT:partial$glossary/smarter-testing.adoc[tag=test-suite]
+
+== Test uploads
+
+include::guides:ROOT:partial$glossary/smarter-testing.adoc[tag=test-uploads]
+
+== Testsuite command
+
+include::guides:ROOT:partial$glossary/smarter-testing.adoc[tag=testsuite-command]
 
 == Trigger
 

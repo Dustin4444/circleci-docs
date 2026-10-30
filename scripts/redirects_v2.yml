@@ -47,10 +47,10 @@
   new: /guides/integration/add-ssh-key/
 
 - old: /android-images-support-policy/
-  new: /guides/execution-managed/android-images-support-policy/
+  new: /guides/execute/android-images-support-policy/
 
 - old: /android-machine-image/
-  new: /guides/execution-managed/android-machine-image/
+  new: /guides/execute/android-machine-image/
 
 - old: /api-developers-guide/
   new: /guides/toolkit/api-developers-guide/
@@ -98,7 +98,7 @@
   new: /guides/test/browser-testing/
 
 - old: /building-docker-images/
-  new: /guides/execution-managed/building-docker-images/
+  new: /guides/execute/building-docker-images/
 
 - old: /caching/
   new: /guides/optimize/caching/
@@ -107,7 +107,7 @@
   new: /guides/toolkit/circleci-config-sdk/
 
 - old: /circleci-images/
-  new: /guides/execution-managed/circleci-images/
+  new: /guides/execute/circleci-images/
 
 - old: /code-coverage/
   new: /guides/test/code-coverage/
@@ -116,7 +116,7 @@
   new: /guides/test/collect-test-data/
 
 - old: /concepts/
-  new: /guides/about-circleci/concepts/
+  new: /reference/concepts/
 
 - old: /concurrency/
   new: /guides/optimize/concurrency/
@@ -140,13 +140,13 @@
   new: /reference/configuration-reference/
 
 - old: /container-runner/
-  new: /guides/execution-runner/container-runner/
+  new: /runner/container-runner/
 
 - old: /container-runner-installation/
-  new: /guides/execution-runner/container-runner-installation/
+  new: /runner/container-runner-installation/
 
 - old: /container-runner-performance-benchmarks/
-  new: /guides/execution-runner/container-runner-performance-benchmarks/
+  new: /runner/container-runner-performance-benchmarks/
 
 - old: /contexts/
   new: /guides/security/contexts/
@@ -155,7 +155,7 @@
   new: /guides/orchestrate/controlling-serial-execution-across-your-organization/
 
 - old: /convenience-images-support-policy/
-  new: /guides/execution-managed/convenience-images-support-policy/
+  new: /guides/execute/convenience-images-support-policy/
 
 - old: /create-an-orb/
   new: /orbs/author/create-an-orb/
@@ -173,7 +173,7 @@
   new: /guides/plans-pricing/credits/
 
 - old: /custom-images/
-  new: /guides/execution-managed/custom-images/
+  new: /guides/execute/custom-images/
 
 - old: /custom-webhooks/
   new: /guides/orchestrate/custom-webhooks/
@@ -251,13 +251,13 @@
   new: /guides/deploy/deployment-overview/
 
 - old: /docker-compose/
-  new: /guides/execution-managed/docker-compose/
+  new: /guides/execute/docker-compose/
 
 - old: /docker-layer-caching/
   new: /guides/optimize/docker-layer-caching/
 
 - old: /docker-to-machine/
-  new: /guides/execution-managed/docker-to-machine/
+  new: /guides/execute/docker-to-machine/
 
 - old: /dynamic-config/
   new: /guides/orchestrate/dynamic-config/
@@ -266,7 +266,7 @@
   new: /guides/deploy/ecs-ecr/
 
 - old: /enable-checks/
-  new: /guides/integration/enable-checks/
+  new: /guides/integration/status-updates/
 
 - old: /env-vars/
   new: /guides/security/env-vars/
@@ -275,7 +275,7 @@
   new: /guides/toolkit/examples-and-guides-overview/
 
 - old: /executor-intro/
-  new: /guides/execution-managed/executor-intro/
+  new: /guides/execute/executor-intro/
 
 - old: /faq/
   new: /reference/faq/
@@ -311,13 +311,13 @@
   new: /guides/getting-started/hello-world/
 
 - old: /hello-world-macos/
-  new: /guides/execution-managed/hello-world-macos/
+  new: /guides/execute/hello-world-macos/
 
 - old: /hello-world-windows/
-  new: /guides/execution-managed/hello-world-windows/
+  new: /guides/execute/hello-world-windows/
 
 - old: /high-uid-error/
-  new: /guides/execution-managed/high-uid-error/
+  new: /guides/execute/high-uid-error/
 
 - old: /how-to-override-config/
   new: /guides/orchestrate/how-to-override-config/
@@ -341,16 +341,16 @@
   new: /guides/insights/insights-tests/
 
 - old: /install-machine-runner-3-on-docker/
-  new: /guides/execution-runner/install-machine-runner-3-on-docker/
+  new: /runner/install-machine-runner-3-on-docker/
 
 - old: /install-machine-runner-3-on-linux/
-  new: /guides/execution-runner/install-machine-runner-3-on-linux/
+  new: /runner/install-machine-runner-3-on-linux/
 
 - old: /install-machine-runner-3-on-macos/
-  new: /guides/execution-runner/install-machine-runner-3-on-macos/
+  new: /runner/install-machine-runner-3-on-macos/
 
 - old: /install-machine-runner-3-on-windows/
-  new: /guides/execution-runner/install-machine-runner-3-on-windows/
+  new: /runner/install-machine-runner-3-on-windows/
 
 - old: /intelligent-summaries/
   new: /guides/toolkit/intelligent-summaries/
@@ -365,7 +365,7 @@
   new: /guides/getting-started/invite-your-team/
 
 - old: /ios-codesigning/
-  new: /guides/execution-managed/ios-codesigning/
+  new: /guides/execute/ios-codesigning/
 
 - old: /ip-ranges/
   new: /guides/security/ip-ranges/
@@ -389,22 +389,22 @@
   new: /guides/getting-started/language-python/
 
 - old: /linux-cuda-images-support-policy/
-  new: /guides/execution-managed/linux-cuda-images-support-policy/
+  new: /guides/execute/linux-cuda-images-support-policy/
 
 - old: /linux-vm-support-policy/
-  new: /guides/execution-managed/linux-vm-support-policy/
+  new: /guides/execute/linux-vm-support-policy/
 
 - old: /local-cli/
   new: /guides/toolkit/local-cli/
 
 - old: /machine-runner-3-configuration-reference/
-  new: /guides/execution-runner/machine-runner-3-configuration-reference/
+  new: /runner/machine-runner-3-configuration-reference/
 
 - old: /machine-runner-3-manual-installation/
-  new: /guides/execution-runner/machine-runner-3-manual-installation/
+  new: /runner/machine-runner-3-manual-installation/
 
 - old: /machine-runner-3-manual-installation-on-windows/
-  new: /guides/execution-runner/machine-runner-3-manual-installation-on-windows/
+  new: /runner/machine-runner-3-manual-installation-on-windows/
 
 - old: /manage-contexts-with-config-policies/
   new: /guides/config-policies/manage-contexts-with-config-policies/
@@ -425,13 +425,13 @@
   new: /guides/orchestrate/migrate-from-deploy-to-run/
 
 - old: /migrate-from-launch-agent-to-machine-runner-3-on-linux/
-  new: /guides/execution-runner/migrate-from-launch-agent-to-machine-runner-3-on-linux/
+  new: /runner/migrate-from-launch-agent-to-machine-runner-3-on-linux/
 
 - old: /migrate-from-launch-agent-to-machine-runner-3-on-macos/
-  new: /guides/execution-runner/migrate-from-launch-agent-to-machine-runner-3-on-macos/
+  new: /runner/migrate-from-launch-agent-to-machine-runner-3-on-macos/
 
 - old: /migrate-from-launch-agent-to-machine-runner-3-on-windows/
-  new: /guides/execution-runner/migrate-from-launch-agent-to-machine-runner-3-on-windows/
+  new: /runner/migrate-from-launch-agent-to-machine-runner-3-on-windows/
 
 - old: /migrate-scheduled-workflows-to-scheduled-pipelines/
   new: /guides/orchestrate/migrate-scheduled-workflows-to-scheduled-pipelines/
@@ -467,7 +467,7 @@
   new: /guides/integration/new-relic-integration/
 
 - old: /next-gen-migration-guide/
-  new: /guides/execution-managed/next-gen-migration-guide/
+  new: /guides/execute/next-gen-migration-guide/
 
 - old: /notifications/
   new: /guides/integration/notifications/
@@ -557,7 +557,7 @@
   new: /guides/plans-pricing/prevent-unregistered-users-from-spending-credits/
 
 - old: /private-images/
-  new: /guides/execution-managed/private-images/
+  new: /guides/execute/private-images/
 
 - old: /publish-packages-to-packagecloud/
   new: /guides/deploy/publish-packages-to-packagecloud/
@@ -566,7 +566,7 @@
   new: /guides/permissions-authentication/pull-an-image-from-aws-ecr-with-oidc/
 
 - old: /remote-docker-images-support-policy/
-  new: /guides/execution-managed/remote-docker-images-support-policy/
+  new: /guides/execute/remote-docker-images-support-policy/
 
 - old: /rename-organizations-and-repositories/
   new: /guides/security/rename-organizations-and-repositories/
@@ -575,7 +575,7 @@
   new: /guides/test/rerun-failed-tests/
 
 - old: /resource-class-overview/
-  new: /guides/execution-managed/resource-class-overview/
+  new: /guides/execute/resource-class-overview/
 
 - old: /reusing-config/
   new: /reference/reusing-config/
@@ -587,25 +587,25 @@
   new: /guides/security/rotate-project-ssh-keys/
 
 - old: /run-a-job-in-a-container/
-  new: /guides/execution-managed/run-a-job-in-a-container/
+  new: /guides/toolkit/cli-migration-guide/
 
 - old: /runner-api/
-  new: /guides/execution-runner/runner-api/
+  new: /reference/runner-api/
 
 - old: /runner-concepts/
-  new: /guides/execution-runner/runner-concepts/
+  new: /runner/runner-concepts/
 
 - old: /runner-faqs/
-  new: /guides/execution-runner/runner-faqs/
+  new: /runner/runner-faqs/
 
 - old: /runner-feature-comparison-matrix/
-  new: /guides/execution-runner/runner-feature-comparison-matrix/
+  new: /runner/runner-feature-comparison-matrix/
 
 - old: /runner-overview/
-  new: /guides/execution-runner/runner-overview/
+  new: /runner/runner-overview/
 
 - old: /runner-scaling/
-  new: /guides/execution-runner/runner-scaling/
+  new: /runner/runner-scaling/
 
 - old: /sample-config/
   new: /guides/toolkit/sample-config/
@@ -761,7 +761,7 @@
   new: /guides/getting-started/slack-orb-tutorial/
 
 - old: /ssh-access-jobs/
-  new: /guides/execution-managed/ssh-access-jobs/
+  new: /guides/execute/ssh-access-jobs/
 
 - old: /status-badges/
   new: /guides/integration/status-badges/
@@ -830,7 +830,7 @@
   new: /reference/troubleshoot/
 
 - old: /troubleshoot-self-hosted-runner/
-  new: /guides/execution-runner/troubleshoot-self-hosted-runner/
+  new: /runner/troubleshoot-self-hosted-runner/
 
 - old: /troubleshoot-test-splitting/
   new: /guides/test/troubleshoot-test-splitting/
@@ -842,25 +842,25 @@
   new: /guides/config-policies/use-the-cli-for-config-and-policy-development/
 
 - old: /using-arm/
-  new: /guides/execution-managed/using-arm/
+  new: /guides/execute/using-arm/
 
 - old: /using-branch-filters/
   new: /guides/orchestrate/using-branch-filters/
 
 - old: /using-docker/
-  new: /guides/execution-managed/using-docker/
+  new: /guides/execute/using-docker/
 
 - old: /using-dynamic-configuration/
   new: /guides/orchestrate/using-dynamic-configuration/
 
 - old: /using-gpu/
-  new: /guides/execution-managed/using-gpu/
+  new: /guides/execute/using-gpu/
 
 - old: /using-linuxvm/
-  new: /guides/execution-managed/using-linuxvm/
+  new: /guides/execute/using-linuxvm/
 
 - old: /using-macos/
-  new: /guides/execution-managed/using-macos/
+  new: /guides/execute/using-macos/
 
 - old: /using-matrix-jobs/
   new: /guides/orchestrate/using-matrix-jobs/
@@ -872,7 +872,7 @@
   new: /guides/toolkit/using-the-circleci-mcp-server/
 
 - old: /using-windows/
-  new: /guides/execution-managed/using-windows/
+  new: /guides/execute/using-windows/
 
 - old: /variables/
   new: /reference/variables/
@@ -890,7 +890,7 @@
   new: /reference/outbound-webhooks-reference/
 
 - old: /windows-images-support-policy/
-  new: /guides/execution-managed/windows-images-support-policy/
+  new: /guides/execute/windows-images-support-policy/
 
 - old: /workflows/
   new: /guides/orchestrate/workflows/
@@ -899,5 +899,275 @@
   new: /guides/orchestrate/workspaces/
 
 - old: /xcode-policy/
-  new: /guides/execution-managed/xcode-policy/
+  new: /guides/execute/xcode-policy/
 
+
+- old: /2.0/circleci-images/
+  new: /guides/execute/circleci-images/
+
+- old: /2.0/caching/
+  new: /guides/optimize/caching/
+
+- old: /style/style-guide-overview/
+  new: /contributors/docs-style/
+
+- old: /webhooks/
+  new: /guides/integration/outbound-webhooks/
+
+- old: /server/latest/operator/monitoring-stack-reference-helm-chart/
+  new: /server-admin/latest/operator/monitoring-stack-reference-helm-chart/
+
+- old: /2.0/executor-types/
+  new: /guides/execute/executor-intro/
+
+- old: /server/server-4.8/overview/circleci-server-overview/
+  new: /server-admin/server-4.8/overview/circleci-server-overview/
+
+- old: /analyze-pipelines-during-an-incident/
+  new: /guides/orchestrate/analyze-pipelines-during-an-incident/
+
+- old: /executor-types/
+  new: /guides/execute/executor-intro/
+
+- old: /orbs/author/orb-concepts/
+  new: /orbs/use/orb-concepts/
+
+- old: /set-a-nightly-schedule-trigger/
+  new: /guides/orchestrate/set-a-nightly-schedule-trigger/
+
+- old: /resource-class-lifecycle/
+  new: /guides/execute/resource-class-lifecycle/
+
+- old: /set-up-cross-repo-triggers-for-library-consumers/
+  new: /guides/orchestrate/set-up-cross-repo-triggers-for-library-consumers/
+
+- old: /2.0/webhooks/
+  new: /guides/integration/outbound-webhooks/
+
+- old: /auto-rerun-failed-tests/
+  new: /guides/test/auto-rerun-failed-tests/
+
+- old: /server/server-4.7/overview/circleci-server-overview/
+  new: /server-admin/server-4.7/overview/circleci-server-overview/
+
+- old: /2.0/local-cli/
+  new: /guides/toolkit/circleci-cli/
+
+- old: /2.0/triggers/
+  new: /guides/orchestrate/triggers-overview/
+
+- old: /about-circleci/open-source/
+  new: /guides/about-circleci/open-source/
+
+- old: /deploy-a-component/
+  new: /guides/deploy/deploy-a-component/
+
+- old: /migrate-scheduled-workflows-to-schedule-triggers/
+  new: /guides/orchestrate/migrate-scheduled-workflows-to-schedule-triggers/
+
+- old: /2.0/contexts/
+  new: /guides/security/contexts/
+
+- old: /automatic-reruns/
+  new: /guides/orchestrate/automatic-reruns/
+
+- old: /config-policies/manage-contexts-with-config-policies/
+  new: /guides/config-policies/manage-contexts-with-config-policies/
+
+- old: /cursor-origin-trigger-event-options/
+  new: /guides/orchestrate/cursor-origin-trigger-event-options/
+
+- old: /deploy/deploy-to-azure-container-registry/
+  new: /guides/deploy/deploy-to-azure-container-registry/
+
+- old: /execution-managed/android-images-support-policy/
+  new: /guides/execute/android-images-support-policy/
+
+- old: /machine-convenience-image-lifecycle/
+  new: /guides/execute/machine-convenience-image-lifecycle/
+
+- old: /pause-pipelines-during-an-incident/
+  new: /guides/orchestrate/pause-pipelines-during-an-incident/
+
+- old: /plans-pricing/plan-overview/
+  new: /guides/plans-pricing/plan-overview/
+
+- old: /set-up-deploys/
+  new: /guides/deploy/set-up-deploys/
+
+- old: /test/rerun-failed-tests/
+  new: /guides/test/rerun-failed-tests/
+
+- old: /2.0/language-javascript/
+  new: /guides/getting-started/language-javascript/
+
+- old: /2.0/reusing-config/
+  new: /reference/reusing-config/
+
+- old: /delete-organizations-and-projects/
+  new: /guides/security/delete-organizations-and-projects/
+
+- old: /execution-managed/private-images/
+  new: /guides/execute/private-images/
+
+- old: /execution-runner/machine-runner-3-manual-installation-on-windows/
+  new: /runner/machine-runner-3-manual-installation-on-windows/
+
+- old: /how-to-find-ids/
+  new: /guides/toolkit/how-to-find-ids/
+
+- old: /optimize/artifacts/
+  new: /guides/optimize/artifacts/
+
+- old: /release-validation-reference/
+  new: /guides/deploy/release-validation-reference/
+
+- old: /rollback-a-deployment/
+  new: /guides/deploy/rollback-a-deployment/
+
+- old: /schedule-triggers-with-multiple-workflows/
+  new: /guides/orchestrate/schedule-triggers-with-multiple-workflows/
+
+- old: /schedule-triggers/
+  new: /guides/orchestrate/schedule-triggers/
+
+- old: /server-3-overview/
+  new: /server-admin/latest/overview/circleci-server-overview/
+
+- old: /deploy/smart-deployments-overview/
+  new: /guides/deploy/smart-deployments-overview/
+
+- old: /execution-managed/linux-vm-support-policy/
+  new: /guides/execute/linux-vm-support-policy/
+
+- old: /fix-flaky-tests/
+  new: /guides/test/fix-flaky-tests/
+
+- old: /integration/authorize-google-cloud-sdk/
+  new: /guides/integration/authorize-google-cloud-sdk/
+
+- old: /set-up-rollbacks/
+  new: /guides/deploy/set-up-rollbacks/
+
+- old: /set-up-test-impact-analysis/
+  new: /guides/test/set-up-test-impact-analysis/
+
+- old: /set-up-the-circleci-release-agent/
+  new: /guides/deploy/set-up-the-circleci-release-agent/
+
+- old: /set-up-triggers/
+  new: /guides/orchestrate/set-up-triggers/
+
+- old: /sso-group-mapping/
+  new: /guides/permissions-authentication/sso-group-mapping/
+
+- old: /toolkit/connecting-to-the-circleci-mcp-server/
+  new: /guides/toolkit/connecting-to-the-circleci-mcp-server/
+
+- old: /toolkit/vs-code-extension-overview/
+  new: /guides/toolkit/vs-code-extension-overview/
+
+- old: /use-dynamic-test-splitting/
+  new: /guides/test/use-dynamic-test-splitting/
+
+- old: /about-circleci/concepts/
+  new: /reference/concepts/
+
+- old: /caching-strategy/
+  new: /guides/optimize/caching/
+
+- old: /circleci-cli/
+  new: /guides/toolkit/circleci-cli/
+
+- old: /execution-managed/android-machine-image/
+  new: /guides/execute/android-machine-image/
+
+- old: /execution-runner/runner-scaling/
+  new: /runner/runner-scaling/
+
+- old: /getting-started/language-javascript/
+  new: /guides/getting-started/language-javascript/
+
+- old: /migrate/migrating-from-azuredevops/
+  new: /guides/migrate/migrating-from-azuredevops/
+
+- old: /orchestrate/analyze-pipelines-during-an-incident/
+  new: /guides/orchestrate/analyze-pipelines-during-an-incident/
+
+- old: /orchestrate/pipeline-variables/
+  new: /guides/orchestrate/pipeline-variables/
+
+- old: /rerun-failed-tests-only/
+  new: /guides/test/rerun-failed-tests/
+
+- old: /security/set-environment-variable/
+  new: /guides/security/set-environment-variable/
+
+- old: /toolkit/examples-and-guides-overview/
+  new: /guides/toolkit/examples-and-guides-overview/
+
+- old: /toolkit/managing-api-tokens/
+  new: /guides/toolkit/managing-api-tokens/
+
+- old: /circleci-mcp-overview/
+  new: /guides/toolkit/circleci-mcp-overview/
+
+- old: /configure-deploy-markers/
+  new: /guides/deploy/configure-deploy-markers/
+
+- old: /deploy/deploy-a-component/
+  new: /guides/deploy/deploy-a-component/
+
+- old: /execution-managed/using-macos/
+  new: /guides/execute/using-macos/
+
+- old: /getting-started/create-project/
+  new: /guides/getting-started/create-project/
+
+- old: /integration/datadog-integration/
+  new: /guides/integration/datadog-integration/
+
+- old: /integration/status-updates/
+  new: /guides/integration/status-updates/
+
+- old: /oauth-dynamic-client-registration/
+  new: /guides/toolkit/oauth-dynamic-client-registration/
+
+- old: /orchestrate/automatic-reruns/
+  new: /guides/orchestrate/automatic-reruns/
+
+- old: /orchestrate/set-up-multiple-configuration-files-for-a-project/
+  new: /guides/orchestrate/set-up-multiple-configuration-files-for-a-project/
+
+- old: /orchestrate/using-branch-filters/
+  new: /guides/orchestrate/using-branch-filters/
+
+- old: /orchestrate/workflows/
+  new: /guides/orchestrate/workflows/
+
+- old: /security/rename-organizations-and-repositories/
+  new: /guides/security/rename-organizations-and-repositories/
+
+- old: /server/latest/operator/data-retention/
+  new: /server-admin/latest/operator/data-retention/
+
+- old: /toolkit/oauth-dynamic-client-registration/
+  new: /guides/toolkit/oauth-dynamic-client-registration/
+
+- old: /api/v1-reference/
+  new: /api/v1/
+
+- old: /environment-variables/
+  new: /guides/security/env-vars/
+
+- old: /2.0/gh-bb-integration/
+  new: /guides/permissions-authentication/users-organizations-and-integrations-guide/
+
+- old: /ja/webhooks/
+  new: /guides/orchestrate/custom-webhooks/
+
+- old: /runner-installation/
+  new: /runner/runner-overview/
+
+- old: /guides/integration/enable-checks/
+  new: /guides/integration/status-updates/

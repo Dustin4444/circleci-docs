@@ -29,6 +29,8 @@ content:
   - url: .
     start_path: docs/reference
   - url: .
+    start_path: docs/runner
+  - url: .
     start_path: docs/orbs
   - url: .
     start_path: docs/server-admin-4.10
@@ -62,15 +64,15 @@ asciidoc:
     serverversion46: 4.6.6
     serverversion47: 4.7.15
     serverversion48: 4.8.12
-    serverversion49: 4.9.5
-    serverversion410: 4.10.0
+    serverversion49: 4.9.6
+    serverversion410: 4.10.1
     terraformversion: 0.15.4
     dockerversion: v28
     kubectlversion: 1.19
     helmversion: 3.9.2
     helmdiffversion: 3.5.0
     kotsversion: 1.65.0
-    xcodeversion: 27.0.0
+    xcodeversion: 27.1.0
     page-toclevels: 6
     idprefix: ""
     idseparator: "-"
@@ -134,3 +136,19 @@ antora:
       - 'icons/*.svg'
   - require: ./extensions/llms-txt-generator-extension.js
   - require: ./extensions/agents-md-generator-extension.js
+  - require: ./extensions/guides-versions-extension.js
+    # When Server 5.0 ships and this moves to '5.0', decide what 4.x readers get.
+    # One option is to freeze the 4.10 guides as a separate archive site and use
+    # the Antora Atlas extension (https://gitlab.com/antora/antora-atlas-extension)
+    # so its links to pages it doesn't contain resolve to the live site. Atlas
+    # was alpha software when this note was written, so check its status first.
+    enabled: true
+    serverversion: '4.10'
+    # Earliest Server version the docs cover. Pages available from it get no
+    # "Server version" sidebar line.
+    serverbaseline: '4.7'
+    serverstartpage: getting-started:create-project.adoc
+    # The build fails when more xrefs than this point to pages the Server build
+    # drops. Lower it as they get wrapped in ifndef::server[] (the list is in
+    # extensions/.temp/guides-server-unlinked.md after a build).
+    maxunlinkedxrefs: 15

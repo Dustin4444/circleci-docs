@@ -7,7 +7,9 @@
 :page-description: Tips and common errors to help troubleshoot your CircleCI test splitting implementation.
 :experimental:
 
-NOTE: This page covers troubleshooting the legacy `circleci tests` command family. CircleCI's preferred way to run and split tests is now `circleci testsuite`. See xref:test.adoc#smarter-testing[Get Started With Smarter Testing]. If you are on CircleCI Server, continue to use `circleci tests`.
+ifndef::server[]
+NOTE: This page covers troubleshooting the legacy `circleci tests` command family. CircleCI's preferred way to run and split tests is now `circleci testsuite`. To move to it, follow xref:getting-started-with-smarter-testing.adoc[Getting Started With Smarter Testing]. If you are on CircleCI Server, continue to use `circleci tests`.
+endif::server[]
 
 [#using-test-splitting-with-python-django-tests]
 == Using test splitting with Python Django tests
@@ -115,7 +117,7 @@ workflows:
 ### Video: troubleshooting globbing
 
 
-NOTE: To follow along with the commands in the video below you will need to be xref:execution-managed:ssh-access-jobs.adoc[`SSH-ed into a job`].
+NOTE: To follow along with the commands in the video below you will need to be xref:execute:ssh-access-jobs.adoc[`SSH-ed into a job`].
 
 ++++
 <div class="video-wrapper">
@@ -142,5 +144,7 @@ go test -v $(go list ./... | circleci tests split)
 [#next-steps]
 ## Next steps
 
-* xref:collect-test-data.adoc[Collect Test Data]
+* xref:collect-test-data.adoc[Upload Test Results]
+ifndef::server[]
 * xref:insights:insights-tests.adoc[Test Insights]
+endif::server[]
